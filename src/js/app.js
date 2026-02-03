@@ -66,10 +66,8 @@ btnAuth.forEach((item) => {
       btn.classList.remove("color-text", "font-bold");
     });
 
-    // Apply active styles to clicked button
     item.classList.add("color-text", "font-bold");
 
-    // Update authStatus array logic
     if (temp !== authStatus[0]) {
       authStatus.pop();
       authStatus.push(temp);
@@ -79,12 +77,9 @@ btnAuth.forEach((item) => {
 
     const formWrapper = document.querySelector("#form-wrapper");
 
-    // داخل تابع کلیک دکمه‌ها:
     if (temp === "outlin") {
-      // جابه‌جایی به سمت فرم ثبت‌نام
       formWrapper.style.transform = "translateX(-50%)"; // بسته به جهت RTL/LTR تنظیم شود
     } else {
-      // برگشت به فرم ورود
       formWrapper.style.transform = "translateX(0)";
     }
   });
@@ -93,7 +88,7 @@ btnAuth.forEach((item) => {
 // Input Validation Logic: Handles username and password constraints
 const passwordInput = document.querySelector("#password-input");
 const togglePassword = document.querySelector("#toggle-password");
-// 1. نمایش و مخفی کردن رمز (هوشمند برای همه اینپت‌ها)
+
 const toggleButtons = document.querySelectorAll(".toggle-btn");
 
 toggleButtons.forEach((btn) => {
@@ -110,3 +105,91 @@ toggleButtons.forEach((btn) => {
     }
   });
 });
+// ۱. تابع مدیریت نمایش خطا (بوردر قرمز و متن خطا)
+function setErrorMessage(inputElement, message) {
+  const container = inputElement.closest("div");
+
+  const parent = container.classList.contains("relative")
+    ? container.parentElement
+    : container;
+  const errorDiv = parent.querySelector(".error-msg");
+
+  if (message) {
+    errorDiv.textContent = message;
+    errorDiv.classList.remove("hidden");
+    inputElement.classList.add("border-red-500");
+  } else {
+    errorDiv.textContent = "";
+    errorDiv.classList.add("hidden");
+    inputElement.classList.remove("border-red-500");
+  }
+}
+
+// ۲. تابع بررسی قوانین پیچیدگی رمز عبور
+function validatePassword(password) {
+  const hasPersian = /[\u0600-\u06FF]/.test(password);
+  const hasUpper = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const isLongEnough = password.length >= 8;
+
+  if (hasPersian) return "رمز عبور نباید شامل حروف فارسی باشد.";
+  if (!hasUpper) return "حداقل یک حرف بزرگ انگلیسی لازم است.";
+  if (!hasNumber) return "حداقل یک عدد لازم است.";
+  if (!isLongEnough) return "رمز باید حداقل ۸ کاراکتر باشد.";
+  return true;
+}
+
+// ۳. اعتبار‌سنجی نام کاربری (برای هر دو فرم ورود و ثبت‌نام)
+document.querySelectorAll("input[type='text']").forEach((input) => {
+  input.addEventListener("input", function () {
+    const hasNumber = /\d/.test(this.value);
+
+    if (this.value.trim() === "") {
+      setErrorMessage(this, "نام کاربری نمی‌تواند خالی باشد.");
+    } else if (hasNumber) {
+      setErrorMessage(this, "نام کاربری نباید شامل عدد باشد.");
+    } else {
+      setErrorMessage(this, null);
+    }
+  });
+});
+
+// ۴. اعتبار‌سنجی رمزها (ورود و ثبت‌نام)
+const registerInputs = document.querySelectorAll("#register-form .pass-input");
+const registerPass = registerInputs[0];
+const confirmPass = registerInputs[1];
+
+document.querySelectorAll(".pass-input").forEach((input) => {
+  input.addEventListener("input", function () {
+    const result = validatePassword(this.value);
+
+    if (this.value === "") {
+      setErrorMessage(this, "فیلد رمز نمی‌تواند خالی باشد.");
+    } else if (result !== true) {
+      setErrorMessage(this, result);
+    } else {
+      setErrorMessage(this, null);
+    }
+
+    if (this === registerPass && confirmPass && confirmPass.value !== "") {
+      confirmPass.dispatchEvent(new Event("input"));
+    }
+  });
+});
+
+// ۵. منطق اختصاصی تکرار رمز (فقط در ثبت‌نام)
+if (confirmPass) {
+  confirmPass.addEventListener("input", function () {
+    const result = validatePassword(this.value);
+
+    if (this.value === "") {
+      setErrorMessage(this, "لطفاً تکرار رمز را وارد کنید.");
+    } else if (result !== true) {
+      setErrorMessage(this, result);
+    } else if (this.value !== registerPass.value) {
+      setErrorMessage(this, "رمز عبور با تکرار آن مطابقت ندارد.");
+    } else {
+      setErrorMessage(this, null);
+    }
+  });
+}
