@@ -58,94 +58,117 @@
               >
             </div>
             <div
-              class="form-container relative overflow-hidden w-full h-[400px] overflow-y-auto"
+              class="form-container relative overflow-hidden w-full h-[450px] overflow-y-auto"
             >
               <div
                 id="form-wrapper"
                 class="flex transition-transform duration-500 w-[200%]"
               >
                 <div dir="rtl" id="login-form" class="w-1/2 p-4">
-                  <label
-                    class="inline-block mb-2 mt-2 text-[#555] font-semibold"
-                    >نام کاربری</label
-                  >
-                  <input
-                    type="text"
-                    dir="rtl"
-                    placeholder="نام کاربری خود را وارد کنید."
-                    class="w-full mb-4 p-2 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400"
-                  />
-                  <label class="inline-block mb-2 text-[#555] font-semibold"
-                    >رمز</label
-                  >
-                  <div class="relative mb-3">
-                    <input
-                      id="password-input"
-                      type="password"
-                      dir="rtl"
-                      placeholder="رمز خود را وارد کنید."
-                      class="w-full p-2 pl-10 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
-                    />
-                    <button
-                      type="button"
-                      id="toggle-password"
-                      class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600 transition-colors"
+                  <div class="mb-4">
+                    <label class="inline-block mb-2 text-[#555] font-semibold"
+                      >نام کاربری</label
                     >
-                      <i id="eye-icon" class="fa-regular fa-eye"></i>
-                    </button>
+                    <input
+                      type="text"
+                      dir="rtl"
+                      placeholder="نام کاربری خود را وارد کنید."
+                      class="w-full p-2 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400"
+                    />
+                    <div
+                      class="error-msg text-red-500 text-xs mt-1 hidden"
+                    ></div>
                   </div>
+
+                  <div class="mb-4">
+                    <label class="inline-block mb-2 text-[#555] font-semibold"
+                      >رمز</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="password"
+                        dir="rtl"
+                        placeholder="رمز خود را وارد کنید."
+                        class="pass-input w-full p-2 pl-10 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                      />
+                      <button
+                        type="button"
+                        class="toggle-btn absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600"
+                      >
+                        <i class="fa-regular fa-eye"></i>
+                      </button>
+                    </div>
+                    <div
+                      class="error-msg text-red-500 text-xs mt-1 hidden"
+                    ></div>
+                  </div>
+
                   <button class="w-full bg-blue-600 text-white py-2 rounded">
                     ورود
                   </button>
                 </div>
 
                 <div dir="rtl" id="register-form" class="w-1/2 p-4">
-                  <label class="inline-block mb-2 text-[#555] font-semibold"
-                    >نام کاربری</label
-                  >
-                  <input
-                    type="text"
-                    placeholder="نام کاربری وارد کنید."
-                    class="w-full mb-4 p-2 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400"
-                  />
-                  <label class="inline-block mb-2 text-[#555] font-semibold"
-                    >رمز</label
-                  >
-                  <div class="relative mb-3">
-                    <input
-                      id="password-input"
-                      type="password"
-                      dir="rtl"
-                      placeholder="رمز خود را وارد کنید."
-                      class="w-full p-2 pl-10 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
-                    />
-                    <button
-                      type="button"
-                      id="toggle-password"
-                      class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600 transition-colors"
+                  <div class="mb-4">
+                    <label class="inline-block mb-2 text-[#555] font-semibold"
+                      >نام کاربری</label
                     >
-                      <i id="eye-icon" class="fa-regular fa-eye"></i>
-                    </button>
-                  </div>
-                  <label class="inline-block mb-2 text-[#555] font-semibold"
-                    >تکرار رمز</label
-                  >
-                  <div class="relative mb-3">
                     <input
-                      id="password-input"
-                      type="password"
-                      dir="rtl"
-                      placeholder="رمز خود را وارد کنید."
-                      class="w-full p-2 pl-10 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                      type="text"
+                      placeholder="نام کاربری وارد کنید."
+                      class="w-full p-2 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400"
                     />
-                    <button
-                      type="button"
-                      id="toggle-password"
-                      class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600 transition-colors"
-                    >
-                      <i id="eye-icon" class="fa-regular fa-eye"></i>
-                    </button>
+                    <div
+                      class="error-msg text-red-500 text-xs mt-1 hidden"
+                    ></div>
                   </div>
+
+                  <div class="mb-4">
+                    <label class="inline-block mb-2 text-[#555] font-semibold"
+                      >رمز</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="password"
+                        dir="rtl"
+                        placeholder="رمز مناسب انتخاب کنید."
+                        class="pass-input w-full p-2 pl-10 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                      />
+                      <button
+                        type="button"
+                        class="toggle-btn absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600"
+                      >
+                        <i class="fa-regular fa-eye"></i>
+                      </button>
+                    </div>
+                    <div
+                      class="error-msg text-red-500 text-xs mt-1 hidden"
+                    ></div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="inline-block mb-2 text-[#555] font-semibold"
+                      >تکرار رمز</label
+                    >
+                    <div class="relative">
+                      <input
+                        type="password"
+                        dir="rtl"
+                        placeholder="رمز خود را تکرار کنید."
+                        class="pass-input w-full p-2 pl-10 border rounded outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-400 transition-all"
+                      />
+                      <button
+                        type="button"
+                        class="toggle-btn absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-600"
+                      >
+                        <i class="fa-regular fa-eye"></i>
+                      </button>
+                    </div>
+                    <div
+                      class="error-msg text-red-500 text-xs mt-1 hidden"
+                    ></div>
+                  </div>
+
                   <button class="w-full bg-green-600 text-white py-2 rounded">
                     ثبت نام
                   </button>

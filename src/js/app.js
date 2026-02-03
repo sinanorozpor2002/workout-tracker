@@ -93,16 +93,14 @@ btnAuth.forEach((item) => {
 // Input Validation Logic: Handles username and password constraints
 const passwordInput = document.querySelector("#password-input");
 const togglePassword = document.querySelector("#toggle-password");
-// انتخاب تمام دکمه‌های چشم
+// 1. نمایش و مخفی کردن رمز (هوشمند برای همه اینپت‌ها)
 const toggleButtons = document.querySelectorAll(".toggle-btn");
 
 toggleButtons.forEach((btn) => {
   btn.addEventListener("click", function () {
-    // پیدا کردن اینپت رمزی که دقیقاً کنار همین دکمه است
     const input = this.parentElement.querySelector("input");
     const icon = this.querySelector("i");
 
-    // تغییر وضعیت
     if (input.type === "password") {
       input.type = "text";
       icon.classList.replace("fa-eye", "fa-eye-slash");
