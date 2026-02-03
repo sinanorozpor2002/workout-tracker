@@ -76,5 +76,39 @@ btnAuth.forEach((item) => {
     }
 
     console.log(authStatus);
+
+    const formWrapper = document.querySelector("#form-wrapper");
+
+    // داخل تابع کلیک دکمه‌ها:
+    if (temp === "outlin") {
+      // جابه‌جایی به سمت فرم ثبت‌نام
+      formWrapper.style.transform = "translateX(-50%)"; // بسته به جهت RTL/LTR تنظیم شود
+    } else {
+      // برگشت به فرم ورود
+      formWrapper.style.transform = "translateX(0)";
+    }
+  });
+});
+
+// Input Validation Logic: Handles username and password constraints
+const passwordInput = document.querySelector("#password-input");
+const togglePassword = document.querySelector("#toggle-password");
+// انتخاب تمام دکمه‌های چشم
+const toggleButtons = document.querySelectorAll(".toggle-btn");
+
+toggleButtons.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    // پیدا کردن اینپت رمزی که دقیقاً کنار همین دکمه است
+    const input = this.parentElement.querySelector("input");
+    const icon = this.querySelector("i");
+
+    // تغییر وضعیت
+    if (input.type === "password") {
+      input.type = "text";
+      icon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+      input.type = "password";
+      icon.classList.replace("fa-eye-slash", "fa-eye");
+    }
   });
 });
