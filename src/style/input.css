@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../font/Vazirmatn[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer components {
+  .modal-initial-state {
+    @apply opacity-0 -translate-y-[900px];
+  }
+
+  .modal-final-state {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .color-text {
+    @apply text-[#0052ff];
+  }
+}
