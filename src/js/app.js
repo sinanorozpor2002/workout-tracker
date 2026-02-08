@@ -86,8 +86,6 @@ btnAuth.forEach((item) => {
 });
 
 // Input Validation Logic: Handles username and password constraints
-const passwordInput = document.querySelector("#password-input");
-const togglePassword = document.querySelector("#toggle-password");
 
 const toggleButtons = document.querySelectorAll(".toggle-btn");
 
@@ -155,9 +153,9 @@ document.querySelectorAll("input[type='text']").forEach((input) => {
 });
 
 // ۴. اعتبار‌سنجی رمزها (ورود و ثبت‌نام)
-const registerInputs = document.querySelectorAll("#register-form .pass-input");
-const registerPass = registerInputs[0];
-const confirmPass = registerInputs[1];
+const registerUser = document.querySelector("#reg-username");
+const registerPass = document.querySelector("#reg-password");
+const confirmPass = document.querySelector("#reg-confirm");
 
 document.querySelectorAll(".pass-input").forEach((input) => {
   input.addEventListener("input", function () {
@@ -190,6 +188,144 @@ if (confirmPass) {
       setErrorMessage(this, "رمز عبور با تکرار آن مطابقت ندارد.");
     } else {
       setErrorMessage(this, null);
+    }
+  });
+}
+
+// sing up
+// ۱. انتخاب فرم (مطمئن شو که در HTML آیدی فرمت دقیقاً همین است)
+const registerForm = document.querySelector("#register-form");
+
+if (registerForm) {
+  registerForm.addEventListener("submit", function (e) {
+    // اول از همه جلوی رفرش را محکم بگیر!
+    e.preventDefault();
+
+    console.log("سابمیت شروع شد...");
+
+    try {
+      const usernameInput = registerUser;
+      const passwordInput = registerPass;
+
+      if (!usernameInput || !passwordInput) {
+        console.error("اینپت‌ها پیدا نشدند!");
+        return;
+      }
+
+      const usernameValue = usernameInput.value;
+      const passwordValue = passwordInput.value;
+
+      // ۳. بررسی ارورها (با استفاده از trim برای حذف فضاهای خالی مخفی)
+      const errors = document.querySelectorAll("#register-form .error-msg");
+      let hasError = false;
+
+      errors.forEach((err) => {
+        // اگر متن داشت و کلاس hidden هم نداشت، یعنی واقعاً ارور نمایش داده شده
+        if (err.innerText.trim() !== "" && !err.classList.contains("hidden")) {
+          hasError = true;
+        }
+      });
+
+      if (hasError) {
+        showToast("لطفاً خطاهای فرم را برطرف کنید", "error");
+        return;
+      }
+
+      // ۴. ذخیره‌سازی
+      const newUser = {
+        username: usernameValue,
+        password: passwordValue,
+      };
+
+      localStorage.setItem("user", JSON.stringify(newUser));
+      showToast("ثبت‌نام با موفقیت انجام شد! خوش آمدید.", "success");
+
+      // اگر تابعی برای جابجایی فرم داری اینجا صدا بزن
+      // showLoginForm();
+      // لغزش خودکار به سمت فرم ورود
+      const loginTabBtn = document.querySelector('[data-login="login"]');
+      if (loginTabBtn) {
+        loginTabBtn.click(); // این کار دقیقاً مثل این است که کاربر روی دکمه ورود کلیک کرده باشد
+      }
+      registerForm.reset(); // فرم را هم خالی کن که برای نفر بعدی آماده باشد
+    } catch (error) {
+      // اگر هر اروری در مراحل بالا رخ دهد، اینجا چاپ می‌شود و صفحه رفرش نمی‌شود
+      console.error("خطای سیستمی:", error);
+    }
+  });
+}
+
+/// pop-up
+
+function showToast(message, type = "success") {
+  const container = document.querySelector("#toast-container");
+
+  const toast = document.createElement("div");
+
+  const bgColor = type === "success" ? "bg-green-500" : "bg-red-500";
+
+  toast.className = `${bgColor} text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500 translate-x-[-150%] flex items-center space-x-3 rtl:space-x-reverse`;
+
+  toast.innerHTML = `
+    <i class="fa-solid ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.replace("translate-x-[-150%]", "translate-x-0");
+  }, 100);
+
+  setTimeout(() => {
+    toast.classList.replace("translate-x-0", "translate-x-[-150%]");
+    setTimeout(() => toast.remove(), 500);
+  }, 3000);
+}
+
+//// login
+
+const loginForm = document.querySelector("#login-form");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // ۱. گرفتن مقادیر وارد شده (حتماً چک کن آیدی‌ها در HTML درست باشند)
+    const userVal = document.querySelector("#login-username").value;
+    const passVal = document.querySelector("#login-password").value;
+
+    // ۲. خواندن دیتا از LocalStorage
+    const savedData = localStorage.getItem("user");
+
+    if (savedData) {
+      const user = JSON.parse(savedData);
+
+      // ۳. چک کردن صحت اطلاعات
+      if (user.username === userVal && user.password === passVal) {
+        showToast(`خوش آمدی ${user.username}!`, "success");
+
+        // ۴. حذف دایو اصلی پس‌زمینه (Overlay)
+        const authOverlay = document.querySelector("#auth-overlay");
+
+        if (authOverlay) {
+          // اضافه کردن یک انیمیشن محو شدن نرم (اختیاری اما قشنگ)
+          authOverlay.style.transition = "all 0.5s ease";
+          authOverlay.style.opacity = "0";
+          authOverlay.style.visibility = "hidden";
+
+          // حذف کامل از DOM بعد از اتمام انیمیشن
+          setTimeout(() => {
+            authOverlay.remove();
+          }, 500);
+
+          showToast("ورود موفقیت‌آمیز بود.", "success");
+        }
+      } else {
+        showToast("نام کاربری یا رمز عبور اشتباه است!", "error");
+      }
+    } else {
+      showToast("ابتدا باید ثبت‌نام کنید!", "error");
     }
   });
 }
