@@ -22,4 +22,16 @@
   .color-text {
     @apply text-[#0052ff];
   }
+
+  /* تغییرات رنگ تم به صورت نرم */
+  html {
+    transition:
+      background-color 0.5s ease,
+      color 0.5s ease;
+  }
+
+  /* جلوگیری از انیمیشن لحظه اول (اختیاری) */
+  .no-transition {
+    transition: none !important;
+  }
 }

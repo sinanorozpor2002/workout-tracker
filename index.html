@@ -15,6 +15,23 @@
       <div class="text-green-900 text-[100px] text-center">
         محتوای اصلی پروژه
       </div>
+      <button
+        id="theme-toggle"
+        class="relative p-2 w-12 h-12 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-slate-800 hover:ring-2 ring-blue-500 transition-all duration-300 group overflow-hidden"
+      >
+        <i
+          class="fa-solid fa-sun text-yellow-500 text-xl transition-all duration-500 transform dark:-rotate-180 dark:scale-0 dark:opacity-0"
+        ></i>
+
+        <i
+          class="fa-solid fa-moon text-blue-400 text-xl absolute transition-all duration-500 transform rotate-180 scale-0 opacity-0 dark:rotate-0 dark:scale-100 dark:opacity-100"
+        ></i>
+      </button>
+      <div
+        class="bg-white dark:bg-slate-900 text-black dark:text-white h-[400px] w-full"
+      >
+        محتوای سایت شما
+      </div>
     </div>
 
     <!-- Device Module: Login Outline -->
@@ -197,5 +214,6 @@
     </div>
 
     <script src="./src/js/app.js"></script>
+    <script src="./src/js/theme.js"></script>
   </body>
 </html>
