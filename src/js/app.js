@@ -1,4 +1,27 @@
 "use strict";
+// ۱. بررسی وضعیت احراز هویت و مدیریت مودال
+(function init() {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const authOverlay = document.querySelector("#auth-overlay");
+  const moduleDiv = document.querySelector("#auth-box");
+
+  if (isLoggedIn === "true") {
+    // اگر کاربر لاگین است، مودال را کلاً حذف کن و نگذار بقیه کدها اجرا شوند
+    if (authOverlay) authOverlay.remove();
+
+    // نمایش خوش‌آمدگویی در کنسول
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser) console.log("خوش آمدی، " + savedUser.username);
+  } else {
+    // اگر کاربر لاگین نیست، حالا انیمیشن ورود مودال را اجرا کن
+    if (moduleDiv) {
+      window.addEventListener("DOMContentLoaded", function () {
+        // اجرای انیمیشن ورود
+        moduleDiv.classList.replace("modal-initial-state", "modal-final-state");
+      });
+    }
+  }
+})();
 
 // Handle Modal Entrance Animation on Page Load
 const moduleDiv = document.querySelector("#auth-box");
@@ -304,6 +327,9 @@ if (loginForm) {
       // ۳. چک کردن صحت اطلاعات
       if (user.username === userVal && user.password === passVal) {
         showToast(`خوش آمدی ${user.username}!`, "success");
+
+        // در بخش مدیریت فرم لاگین، بعد از تایید رمز عبور:
+        localStorage.setItem("isLoggedIn", "true");
 
         // ۴. حذف دایو اصلی پس‌زمینه (Overlay)
         const authOverlay = document.querySelector("#auth-overlay");
