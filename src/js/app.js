@@ -1,4 +1,41 @@
 "use strict";
+
+/* -------------------------------------------------------------------------- */
+/* THEME & PRELOADER HANDLER                         */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * مدیریت نمایش قالب و حذف پری‌لودر پس از بارگذاری کامل صفحه
+ * این تابع انیمیشن خروج لودینگ را اجرا کرده و محتوای اصلی را نمایش می‌دهد.
+ */
+const handleTheme = () => {
+  const preloader = document.getElementById("preloader");
+  const mainWrapper = document.getElementById("main-wrapper");
+
+  // بخش اول: مدیریت پری‌لودر (Loading Screen)
+  if (preloader) {
+    // اعمال انیمیشن محو شدن
+    Object.assign(preloader.style, {
+      transition: "opacity 0.5s ease",
+      opacity: "0",
+    });
+
+    // حذف کامل المان از چیدمان صفحه پس از اتمام انیمیشن
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }
+
+  // بخش دوم: نمایش محتوای اصلی سایت
+
+  mainWrapper?.classList.add("show");
+};
+
+window.addEventListener("load", handleTheme);
+
+// انتهای بخش مدیریت تم و لودینگ
+/* -------------------------------------------------------------------------- */
+
 // ۱. بررسی وضعیت احراز هویت و مدیریت مودال
 (function init() {
   const isLoggedIn = localStorage.getItem("isLoggedIn");

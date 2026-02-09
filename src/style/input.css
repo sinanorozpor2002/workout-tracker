@@ -34,4 +34,25 @@
   .no-transition {
     transition: none !important;
   }
+
+  .sk-three-bounce .sk-child {
+    animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+  }
+  .sk-three-bounce .sk-bounce1 {
+    animation-delay: -0.32s;
+  }
+  .sk-three-bounce .sk-bounce2 {
+    animation-delay: -0.16s;
+  }
+
+  @keyframes sk-three-bounce {
+    0%,
+    80%,
+    100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+  }
 }
