@@ -26,20 +26,22 @@
 // Handle Modal Entrance Animation on Page Load
 const moduleDiv = document.querySelector("#auth-box");
 let test = false;
+
 window.addEventListener("DOMContentLoaded", function () {
-  if (test) {
-    moduleDiv.classList.replace("modal-final-state", "modal-initial-state");
-    // moduleDiv.classList.remove("modal-final-state");
-    // moduleDiv.classList.add("modal-initial-state");
-    test = false;
+  // این شرط یعنی: "فقط اگر مودال توی صفحه بود، انیمیشن بده"
+  if (moduleDiv) {
+    if (test) {
+      moduleDiv.classList.replace("modal-final-state", "modal-initial-state");
+      test = false;
+    } else {
+      moduleDiv.classList.replace("modal-initial-state", "modal-final-state");
+      test = true;
+    }
   } else {
-    moduleDiv.classList.replace("modal-initial-state", "modal-final-state");
-    // moduleDiv.classList.remove("modal-initial-state");
-    // moduleDiv.classList.add("modal-final-state");
-    test = true;
+    // اگر کاربر لاگین باشه، moduleDiv وجود نداره و این بخش اجرا میشه
+    console.log("داشبورد فعال است؛ مودال ورود یافت نشد.");
   }
 });
-
 // Auth View Switcher: Handles UI toggling, sound effects, and state management
 
 const btnAuth = document.querySelectorAll(".view-btn");

@@ -4,5 +4,9 @@
   },
   "scripts": {
     "start": "npx tailwindcss -i ./src/style/input.css -o ./src/style/output.css --watch"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "swiper": "^12.1.0"
   }
 }
